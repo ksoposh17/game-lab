@@ -1,61 +1,65 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#173b35">
-<title>Pocket Ledger — Expense Tracker</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#315b49"><title>Simple Expense Tracker</title>
 <style>
-:root{--ink:#19352f;--muted:#71817b;--green:#1e6253;--mint:#e8f2ed;--paper:#f6f8f5;--line:#e3eae5;--red:#bd5c55}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
-header{background:#173b35;color:white;padding:22px max(18px,calc((100% - 1120px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:22px;font-weight:850}.brand span{color:#a8d6bf}.tagline{font-size:12px;color:#c8d8d1}
-main{max-width:1120px;margin:28px auto;padding:0 18px}.top{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:20px}.top h1{font-size:29px;letter-spacing:-1px;margin:0}.top p{margin:4px 0 0;color:var(--muted)}
-button,.btn{border:0;border-radius:11px;background:var(--green);color:white;padding:11px 15px;font:600 14px system-ui;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none}button:hover,.btn:hover{filter:brightness(1.08)}button.light,.btn.light{background:white;color:var(--ink);border:1px solid var(--line)}button.red{background:#fff0ee;color:var(--red)}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:17px}.card,.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:0 4px 16px #19352f08}.card small{color:var(--muted);font-weight:650}.card strong{display:block;font-size:25px;margin-top:7px;letter-spacing:-.6px}.card em{font-style:normal;color:var(--muted);font-size:12px}
-.columns{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.panel h2{font-size:17px;margin:0 0 13px}
-label{display:block;font-size:12px;font-weight:700;color:#53665e;margin:12px 0 5px}input,select{width:100%;border:1px solid #dce5df;background:white;border-radius:10px;padding:11px 12px;font:inherit;color:var(--ink);outline:none}input:focus,select:focus{border-color:#5e9b83;box-shadow:0 0 0 3px #5e9b831c}.row{display:flex;gap:10px}.row>div{flex:1;min-width:0}
-.scan{border:1.5px dashed #b8cec2;border-radius:14px;background:#f7fbf8;padding:17px;text-align:center;margin-bottom:12px}.scan .emoji{font-size:28px}.scan p{color:var(--muted);font-size:12px;margin:5px 0 12px}.scanActions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.scan label{margin:0;cursor:pointer}#preview{max-width:100%;max-height:180px;border-radius:9px;margin-top:12px;display:none}.status{font-size:12px;color:var(--green);min-height:18px;margin-top:8px}.hint{font-size:11px;color:var(--muted);margin-top:8px}
-.breakdown{font-size:12px}.barrow{margin:13px 0}.barlabel{display:flex;justify-content:space-between;margin-bottom:5px}.bar{height:8px;background:#edf2ee;border-radius:9px;overflow:hidden}.bar>i{display:block;height:100%;background:#4e9277;border-radius:9px}
-.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:22px 0 10px}.toolbar h2{font-size:18px;margin:0}.toolbar input{max-width:230px}
-.tablewrap{overflow:auto;padding:4px 15px}table{width:100%;border-collapse:collapse;min-width:560px}th{text-align:left;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;padding:12px 9px;border-bottom:1px solid var(--line)}td{padding:12px 9px;border-bottom:1px solid #edf1ee;font-size:13px}th:last-child,td:last-child{text-align:right}.amount{text-align:right;font-weight:750}.pill{background:var(--mint);color:var(--green);padding:4px 8px;border-radius:20px;font-size:11px;font-weight:700}.empty{text-align:center;color:var(--muted);padding:25px}
-footer{text-align:center;color:var(--muted);font-size:11px;padding:25px 12px}
-@media(max-width:780px){.cards{grid-template-columns:repeat(2,1fr)}.columns{grid-template-columns:1fr}.top{align-items:start;flex-direction:column}}@media(max-width:430px){header{padding:17px}.tagline{display:none}main{padding:0 12px;margin:20px auto}.card{padding:13px}.card strong{font-size:22px}.row{gap:7px}}
-</style></head>
+*{box-sizing:border-box}body{margin:0;background:#f5f7f3;color:#26372e;font:16px system-ui,sans-serif}header{background:#315b49;color:white;padding:22px 18px;text-align:center}header h1{margin:0;font-size:25px}main{max-width:620px;margin:24px auto;padding:0 15px}.card{background:white;border:1px solid #e2e9e1;border-radius:16px;padding:19px;margin-bottom:16px}h2{font-size:18px;margin:0 0 14px}#total{font-size:34px;font-weight:800;color:#315b49}label{display:block;font-size:13px;font-weight:650;margin:12px 0 5px}input{width:100%;padding:12px;border:1px solid #d6dfd6;border-radius:10px;font:inherit}button,.upload{display:inline-block;border:0;border-radius:10px;padding:12px 16px;background:#315b49;color:white;font:600 15px system-ui;cursor:pointer;text-align:center}.upload.secondary,button.secondary{background:#e9f0e9;color:#315b49}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions>*{flex:1}.full{width:100%;margin-top:14px}.expense{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #edf0eb}.expense:last-child{border:0}.expense small{display:block;color:#77847a}.expense strong{white-space:nowrap}.delete{padding:6px 9px;background:#f8e9e7;color:#9c423a;font-size:12px}.empty{color:#7a867d;text-align:center;padding:15px}.note{font-size:12px;color:#78847b;line-height:1.5;margin:10px 0 0}#preview{max-width:100%;max-height:170px;display:none;margin-top:10px;border-radius:8px}#status{font-size:13px;color:#315b49;margin-top:8px;min-height:18px}@media(max-width:420px){main{margin:16px auto}.card{padding:15px}}
+</style>
+</head>
 <body>
-<header><div><div class="brand">◒ Pocket <span>Ledger</span></div><div class="tagline">A clearer picture of where your money goes</div></div><button class="light" id="exportTop">↓ Export CSV</button></header>
+<header><h1>My Expenses</h1></header>
 <main>
-<div class="top"><div><h1>Your expenses</h1><p>Track purchases, scan receipts, stay in control.</p></div><button id="focusAdd">＋ Add expense</button></div>
-<section class="cards">
-<div class="card"><small>Spent this month</small><strong id="monthTotal">$0.00</strong><em id="monthCount">0 transactions</em></div>
-<div class="card"><small>All-time spending</small><strong id="allTotal">$0.00</strong><em>All saved expenses</em></div>
-<div class="card"><small>Largest expense</small><strong id="largest">$0.00</strong><em id="largestName">No expenses yet</em></div>
-<div class="card"><small>Top category</small><strong id="topCategory">—</strong><em>By total spent</em></div>
+<section class="card">
+  <h2>Total spent</h2>
+  <div id="total">$0.00</div>
+  <p class="note">Your expenses are saved on this device.</p>
 </section>
-<section class="columns">
-<div class="panel"><h2>＋ Add an expense</h2>
-<div class="scan"><div class="emoji">🧾</div><b>Scan a receipt</b><p>Take a photo or upload an image. We'll try to read the store, date and total.</p>
-<div class="scanActions"><label class="btn">📷 Use camera<input id="camera" type="file" accept="image/*" capture="environment" hidden></label><label class="btn light">Upload receipt<input id="upload" type="file" accept="image/*" hidden></label></div>
-<img id="preview" alt="Receipt preview"><div class="status" id="scanStatus"></div><div class="hint">Bright, clear photos work best. Check the detected details before saving.</div></div>
-<form id="form"><div class="row"><div><label for="merchant">Store / description</label><input id="merchant" placeholder="e.g. Grocery store" required></div><div><label for="amount">Amount ($)</label><input id="amount" type="number" min=".01" step=".01" placeholder="0.00" required></div></div>
-<div class="row"><div><label for="date">Date</label><input id="date" type="date" required></div><div><label for="category">Category</label><select id="category"><option>Groceries</option><option>Dining</option><option>Transportation</option><option>Shopping</option><option>Bills</option><option>Health</option><option>Entertainment</option><option>Travel</option><option>Other</option></select></div></div>
-<label for="notes">Notes (optional)</label><input id="notes" placeholder="Anything you want to remember"><button style="width:100%;margin-top:15px" type="submit">Save expense</button></form></div>
-<div class="panel"><h2>Spending by category</h2><div id="breakdown" class="breakdown empty">Add an expense to see your category breakdown.</div><div style="border-top:1px solid var(--line);margin-top:18px;padding-top:14px"><h2 style="margin-bottom:6px">Your data stays yours</h2><p style="font-size:12px;color:var(--muted);margin:0">Expenses are saved in this browser on this device. They are not sent to a bank or server. Export a CSV backup regularly.</p></div></div>
+<section class="card">
+  <h2>Add an expense</h2>
+  <div class="actions">
+    <label class="upload" for="camera">📷 Take receipt photo</label>
+    <label class="upload secondary" for="upload">Upload receipt</label>
+  </div>
+  <input id="camera" type="file" accept="image/*" capture="environment" hidden>
+  <input id="upload" type="file" accept="image/*" hidden>
+  <img id="preview" alt="Receipt preview">
+  <div id="status"></div>
+  <form id="form">
+    <label for="description">What did you buy?</label>
+    <input id="description" placeholder="Store or item" required>
+    <label for="amount">Amount ($)</label>
+    <input id="amount" type="number" min="0.01" step="0.01" placeholder="0.00" required>
+    <label for="date">Date</label>
+    <input id="date" type="date" required>
+    <button class="full" type="submit">Add expense</button>
+  </form>
+  <p class="note">Receipt scanning fills in details when it can. Please check the amount before adding.</p>
 </section>
-<div class="toolbar"><h2>Recent expenses</h2><input id="search" placeholder="Search expenses…"></div>
-<div class="panel tablewrap"><table><thead><tr><th>Date</th><th>Store / description</th><th>Category</th><th>Notes</th><th>Amount</th><th></th></tr></thead><tbody id="rows"><tr><td colspan="6" class="empty">No expenses yet. Scan a receipt or add one above.</td></tr></tbody></table></div>
-</main><footer>Pocket Ledger · Private, local expense tracking</footer>
+<section class="card">
+  <h2>My expense list</h2>
+  <div id="list" class="empty">No expenses yet.</div>
+  <button id="export" class="secondary full" type="button">Download expense list (CSV)</button>
+</section>
+</main>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script>
 const $=id=>document.getElementById(id),money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n);
 let expenses=[];try{expenses=JSON.parse(localStorage.getItem('pocketLedgerExpenses')||'[]')}catch(e){expenses=[]}
 $('date').value=new Date().toISOString().slice(0,10);
-function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function save(){localStorage.setItem('pocketLedgerExpenses',JSON.stringify(expenses));render()}
-function render(){let now=new Date(),thisMonth=expenses.filter(e=>{let d=new Date(e.date+'T12:00:00');return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear()});$('monthTotal').textContent=money(thisMonth.reduce((s,e)=>s+e.amount,0));$('monthCount').textContent=thisMonth.length+' transaction'+(thisMonth.length===1?'':'s');$('allTotal').textContent=money(expenses.reduce((s,e)=>s+e.amount,0));let big=expenses.reduce((a,b)=>!a||b.amount>a.amount?b:a,null);$('largest').textContent=money(big?big.amount:0);$('largestName').textContent=big?big.merchant:'No expenses yet';let cats={};expenses.forEach(e=>cats[e.category]=(cats[e.category]||0)+e.amount);let ordered=Object.entries(cats).sort((a,b)=>b[1]-a[1]),total=expenses.reduce((s,e)=>s+e.amount,0);$('topCategory').textContent=ordered.length?ordered[0][0]:'—';$('breakdown').className=ordered.length?'breakdown':'breakdown empty';$('breakdown').innerHTML=ordered.length?ordered.map(x=>'<div class="barrow"><div class="barlabel"><b>'+esc(x[0])+'</b><span>'+money(x[1])+'</span></div><div class="bar"><i style="width:'+(x[1]/total*100)+'%"></i></div></div>').join(''):'Add an expense to see your category breakdown.';drawRows()}
-function drawRows(){let q=$('search').value.toLowerCase(),list=expenses.filter(e=>(e.merchant+' '+e.category+' '+e.notes).toLowerCase().includes(q)).sort((a,b)=>b.date.localeCompare(a.date));$('rows').innerHTML=list.length?list.map(e=>'<tr><td>'+esc(e.date)+'</td><td><b>'+esc(e.merchant)+'</b></td><td><span class="pill">'+esc(e.category)+'</span></td><td>'+esc(e.notes||'—')+'</td><td class="amount">'+money(e.amount)+'</td><td><button class="red" style="padding:6px 9px" data-delete="'+esc(e.id)+'">Delete</button></td></tr>').join(''):'<tr><td colspan="6" class="empty">No matching expenses.</td></tr>'}
-$('rows').addEventListener('click',e=>{let b=e.target.closest('[data-delete]');if(b&&confirm('Delete this expense?')){expenses=expenses.filter(x=>x.id!==b.dataset.delete);save()}});
-$('form').addEventListener('submit',e=>{e.preventDefault();let n=Number($('amount').value);if(!Number.isFinite(n)||n<=0)return;expenses.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2),merchant:$('merchant').value.trim(),amount:n,date:$('date').value,category:$('category').value,notes:$('notes').value.trim()});save();$('form').reset();$('date').value=new Date().toISOString().slice(0,10);$('scanStatus').textContent='Expense saved.'});
-$('search').addEventListener('input',drawRows);$('focusAdd').onclick=()=>$('merchant').focus();
-function exportCSV(){let data=[['Date','Store / description','Amount','Category','Notes']].concat(expenses.map(e=>[e.date,e.merchant,e.amount.toFixed(2),e.category,e.notes]));let csv=data.map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(',')).join('\n'),url=URL.createObjectURL(new Blob([csv],{type:'text/csv'})),a=document.createElement('a');a.href=url;a.download='pocket-ledger-expenses.csv';a.click();URL.revokeObjectURL(url)}
-$('exportTop').onclick=exportCSV;
-async function scan(file){if(!file)return;$('scanStatus').textContent='Reading receipt… this can take a little while.';$('preview').src=URL.createObjectURL(file);$('preview').style.display='block';try{if(!window.Tesseract)throw Error('Receipt reader could not load. Check your internet connection and enter the details manually.');let result=await Tesseract.recognize(file,'eng',{logger:m=>{if(m.status==='recognizing text')$('scanStatus').textContent='Reading receipt… '+Math.round((m.progress||0)*100)+'%'}}),txt=result.data.text,lines=txt.split(/\n/).map(x=>x.trim()).filter(Boolean),totals=[];lines.forEach(line=>{if(/total|amount due|grand total|balance due/i.test(line)){let ms=line.match(/\$?\s*\d{1,5}[,.]\d{2}/g)||[];ms.forEach(v=>totals.push(Number(v.replace('$','').replace(',',''))))}});if(!totals.length)lines.forEach(line=>{let m=line.match(/^\s*\$?\s*(\d{1,5}\.\d{2})\s*$/);if(m)totals.push(Number(m[1]))});let merchant=lines.find(l=>l.length>2&&!/receipt|thank you|store #|tel:|www\.|http/i.test(l)&&!/\d{3,}/.test(l))||'';$('merchant').value=merchant.slice(0,70);if(totals.length)$('amount').value=Math.max.apply(null,totals).toFixed(2);let dm=txt.match(/\b(0?[1-9]|1[0-2])[\/.-](0?[1-9]|[12]\d|3[01])[\/.-](20\d{2}|\d{2})\b/);if(dm){let y=dm[3].length===2?'20'+dm[3]:dm[3];$('date').value=y+'-'+dm[1].padStart(2,'0')+'-'+dm[2].padStart(2,'0')}$('scanStatus').textContent=totals.length?'Receipt read. Check the fields, then save your expense.':'Receipt text read. Enter or correct the amount, then save.'}catch(err){$('scanStatus').textContent=err.message||'Could not read this receipt. Enter it manually.'}}
-$('camera').addEventListener('change',e=>scan(e.target.files[0]));$('upload').addEventListener('change',e=>scan(e.target.files[0]));render();
-</script></body></html>
+function render(){
+ const total=expenses.reduce((sum,e)=>sum+Number(e.amount),0);$('total').textContent=money(total);
+ $('list').className=expenses.length?'':'empty';
+ $('list').innerHTML=expenses.length?expenses.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(e=>'<div class="expense"><div><b>'+safe(e.merchant)+'</b><small>'+safe(e.date)+'</small></div><strong>'+money(e.amount)+'</strong><button class="delete" data-id="'+safe(e.id)+'">Delete</button></div>').join(''):'No expenses yet.';
+}
+function safe(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+$('form').addEventListener('submit',e=>{e.preventDefault();const amount=Number($('amount').value);if(amount<=0)return;expenses.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2),merchant:$('description').value.trim(),amount,date:$('date').value});save();$('form').reset();$('date').value=new Date().toISOString().slice(0,10);$('status').textContent='Expense added!'});
+$('list').addEventListener('click',e=>{const b=e.target.closest('[data-id]');if(b&&confirm('Delete this expense?')){expenses=expenses.filter(x=>x.id!==b.dataset.id);save()}});
+async function scan(file){if(!file)return;$('preview').src=URL.createObjectURL(file);$('preview').style.display='block';$('status').textContent='Reading receipt…';try{if(!window.Tesseract)throw Error('Receipt reader unavailable. Please enter details yourself.');const result=await Tesseract.recognize(file,'eng'),text=result.data.text,lines=text.split(/\n/).map(x=>x.trim()).filter(Boolean);const found=[];for(const line of lines){if(/total|amount due|grand total|balance due/i.test(line)){const matches=line.match(/\$?\s*\d{1,5}[,.]\d{2}/g)||[];matches.forEach(v=>found.push(Number(v.replace('$','').replace(',',''))))}}if(found.length)$('amount').value=Math.max(...found).toFixed(2);const name=lines.find(x=>x.length>2&&!/receipt|thank you|www\.|http/i.test(x)&&!/\d{3,}/.test(x));if(name)$('description').value=name.slice(0,65);$('status').textContent=found.length?'Receipt scanned. Check the details below.':'Receipt scanned. Please enter the amount.'}catch(err){$('status').textContent=err.message||'Could not read receipt. Please enter details.'}}
+$('camera').addEventListener('change',e=>scan(e.target.files[0]));$('upload').addEventListener('change',e=>scan(e.target.files[0]));
+$('export').addEventListener('click',()=>{const rows=[['Date','Description','Amount'],...expenses.map(e=>[e.date,e.merchant,Number(e.amount).toFixed(2)])];const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');const url=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));const a=document.createElement('a');a.href=url;a.download='my-expenses.csv';a.click();URL.revokeObjectURL(url)});
+render();
+</script>
+</body>
+</html>
