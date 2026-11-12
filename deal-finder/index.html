@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#6757d9">
+<title>Deal Finder — Compare online prices</title>
+<style>
+:root{--ink:#202033;--muted:#6e7085;--purple:#6757d9;--line:#e8e8f0;--bg:#f7f7fc}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+header{background:linear-gradient(135deg,#5546c8,#8875f1);color:white;padding:22px max(22px,calc((100% - 1050px)/2))}
+.brand{font-size:21px;font-weight:800}.hero{max-width:900px;margin:auto;padding:42px 18px 48px;text-align:center}
+h1{font-size:clamp(34px,6vw,54px);line-height:1.05;letter-spacing:-1.8px;margin:0 0 14px}
+.hero p{color:#efedff;font-size:17px;margin:0 auto 26px;max-width:600px}
+.search{display:flex;gap:9px;background:white;padding:8px;border-radius:15px;max-width:700px;margin:auto;box-shadow:0 12px 35px #30248c40}
+input{flex:1;min-width:0;border:0;outline:0;padding:13px;font-size:16px}
+button{border:0;border-radius:10px;background:var(--purple);color:white;padding:0 22px;font-weight:700;font-size:15px;cursor:pointer}
+main{max-width:1050px;margin:auto;padding:26px 20px 55px}.note{background:white;border:1px solid var(--line);border-radius:13px;padding:14px;color:var(--muted);font-size:13px;line-height:1.5}
+h2{font-size:21px;margin:26px 0 13px}.stores,.compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.store,.comparison{background:white;border:1px solid var(--line);border-radius:14px;padding:17px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.store small{display:block;color:var(--muted);margin-top:4px}.store a,.comparison a{color:var(--purple);font-weight:750;text-decoration:none;white-space:nowrap;font-size:14px}
+.comparison p{color:var(--muted);font-size:13px;margin:5px 0 0}.empty{grid-column:1/-1;background:white;border:1px dashed #c9c5e7;border-radius:14px;padding:25px;text-align:center;color:var(--muted)}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
+@media(max-width:600px){.stores,.compare{grid-template-columns:1fr}.hero{padding-top:34px}.search button{padding:0 14px}.search input{padding:12px 7px;font-size:14px}}
+</style>
+</head>
+<body>
+<header><div class="brand">🏷️ Deal Finder</div><section class="hero">
+<h1>Find the best deal.<br>Keep more money.</h1>
+<p>Search once and compare your item across popular online stores.</p>
+<form class="search" id="form"><input id="q" type="search" placeholder="What are you shopping for?" aria-label="Product name" required><button>Find deals ↗</button></form>
+</section></header>
+<main>
+<div class="note"><b>How it works:</b> Search a product to open matching listings at multiple online stores and shopping comparison sites. This version links to live searches; it does not collect or verify prices directly on this page. Check the retailer's final price, shipping, and availability before buying.</div>
+<h2 id="heading">Popular online stores</h2>
+<div class="stores" id="stores">
+<div class="store"><b>Amazon</b><a href="https://www.amazon.com" target="_blank" rel="noopener">Visit ↗</a></div>
+<div class="store"><b>Walmart</b><a href="https://www.walmart.com" target="_blank" rel="noopener">Visit ↗</a></div>
+<div class="store"><b>Target</b><a href="https://www.target.com" target="_blank" rel="noopener">Visit ↗</a></div>
+<div class="store"><b>Best Buy</b><a href="https://www.bestbuy.com" target="_blank" rel="noopener">Visit ↗</a></div>
+<div class="store"><b>eBay</b><a href="https://www.ebay.com" target="_blank" rel="noopener">Visit ↗</a></div>
+<div class="store"><b>Home Depot</b><a href="https://www.homedepot.com" target="_blank" rel="noopener">Visit ↗</a></div>
+</div>
+<h2>Compare across stores</h2><div class="compare" id="compare"><div class="empty">Enter a product above to start comparing.</div></div>
+</main><footer>Deal Finder · Online shopping price search</footer>
+<script>
+const retailers=[
+["Amazon",q=>"https://www.amazon.com/s?k="+q,"Large selection"],
+["Walmart",q=>"https://www.walmart.com/search?q="+q,"Online deals"],
+["Target",q=>"https://www.target.com/s?searchTerm="+q,"Everyday finds"],
+["Best Buy",q=>"https://www.bestbuy.com/site/searchpage.jsp?st="+q,"Tech and electronics"],
+["eBay",q=>"https://www.ebay.com/sch/i.html?_nkw="+q,"New and pre-owned"],
+["Home Depot",q=>"https://www.homedepot.com/s/"+q,"Home and tools"]
+];
+function search(q){const e=encodeURIComponent(q.trim());if(!e)return;
+document.getElementById("heading").textContent='Stores for "'+q.trim()+'"';
+document.getElementById("stores").innerHTML=retailers.map(r=>'<article class="store"><div><b>'+r[0]+'</b><small>'+r[2]+'</small></div><a href="'+r[1](e)+'" target="_blank" rel="noopener noreferrer">View deals ↗</a></article>').join("");
+document.getElementById("compare").innerHTML=[
+["Google Shopping","Compare listings from many online retailers.","https://www.google.com/search?tbm=shop&q="+e],
+["Bing Shopping","Browse product listings and retailer offers.","https://www.bing.com/shop?q="+e]
+].map(r=>'<article class="comparison"><div><b>'+r[0]+'</b><p>'+r[1]+'</p></div><a href="'+r[2]+'" target="_blank" rel="noopener noreferrer">Compare ↗</a></article>').join("");
+}
+document.getElementById("form").addEventListener("submit",ev=>{ev.preventDefault();search(document.getElementById("q").value)});
+</script></body></html>
