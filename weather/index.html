@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#102b4d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Weather Now">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>Weather Now</title>
+<style>
+:root{color-scheme:dark;--bg:#0c1830;--panel:#172947;--line:#294365;--ink:#f5f8ff;--muted:#b6c6dc;--accent:#8ed8ff}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;padding-bottom:env(safe-area-inset-bottom);background:linear-gradient(145deg,#102b4d,#091426 65%);color:var(--ink);font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{padding:calc(20px + env(safe-area-inset-top)) 18px 18px;text-align:center}h1{margin:0;font-size:clamp(30px,7vw,48px);letter-spacing:-1.5px}header p{margin:4px;color:var(--muted)}
+main{width:min(900px,100%);margin:auto;padding:10px 16px 40px}.search{display:flex;gap:9px;margin:8px 0 18px;flex-wrap:wrap}input,button{font:inherit;border-radius:13px;padding:13px 14px;min-height:48px}input{min-width:0;flex:1;background:#0b1b32;color:var(--ink);border:1px solid var(--line)}button{border:0;background:var(--accent);color:#08203a;font-weight:750;cursor:pointer}.secondary{background:#203957;color:var(--ink);border:1px solid var(--line)}
+.card{background:linear-gradient(145deg,#1b3557,#142743);border:1px solid var(--line);border-radius:22px;padding:22px;margin:12px 0;box-shadow:0 16px 40px #0002}.current{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px}.place{font-size:20px;font-weight:750}.temp{font-size:clamp(64px,14vw,100px);font-weight:800;line-height:1;letter-spacing:-5px}.condition{color:var(--muted);font-size:18px}.emoji{font-size:76px}.details{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.detail{background:#0c1e36aa;border-radius:14px;padding:12px}.detail small{display:block;color:var(--muted)}.forecast{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.day{text-align:center;background:#0c1e36aa;border-radius:14px;padding:12px 5px}.day small{display:block;color:var(--muted)}.day b{display:block;font-size:20px}.note{color:var(--muted);font-size:13px}.error{color:#ffd2d2;min-height:24px}
+@media(max-width:560px){.search input{flex-basis:100%}.current{grid-template-columns:1fr auto}.details{grid-template-columns:repeat(3,1fr)}.detail{padding:9px 7px;font-size:14px}.forecast{grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}.day{padding:10px 2px;font-size:13px}.emoji{font-size:56px}}
+</style>
+</head>
+<body>
+<header><h1>☀️ Weather Now</h1><p>Live conditions and a 5-day forecast</p></header>
+<main>
+<div class="search"><input id="city" placeholder="Enter a city, e.g. Denver" aria-label="City name"><button id="search">Search</button><button class="secondary" id="locate">◎ My location</button></div>
+<div class="error" id="message" role="status">Getting your local weather…</div>
+<section class="card" aria-live="polite"><div class="current"><div><div class="place" id="place">Finding your location</div><div class="temp" id="temp">--°</div><div class="condition" id="condition">Please allow location access</div></div><div class="emoji" id="emoji">🌤️</div></div>
+<div class="details"><div class="detail"><small>Feels like</small><b id="feels">--°</b></div><div class="detail"><small>Humidity</small><b id="humidity">--%</b></div><div class="detail"><small>Wind</small><b id="wind">-- mph</b></div></div></section>
+<section class="card"><h2>5-day forecast</h2><div class="forecast" id="forecast"><div class="note">Forecast will appear here.</div></div></section>
+<p class="note">Weather data from Open-Meteo. Tap “My location” to get weather for where you are, or search for a city.</p>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const weather={0:['Clear sky','☀️'],1:['Mainly clear','🌤️'],2:['Partly cloudy','⛅'],3:['Overcast','☁️'],45:['Fog','🌫️'],48:['Rime fog','🌫️'],51:['Light drizzle','🌦️'],53:['Drizzle','🌦️'],55:['Heavy drizzle','🌧️'],61:['Light rain','🌦️'],63:['Rain','🌧️'],65:['Heavy rain','🌧️'],71:['Light snow','🌨️'],73:['Snow','❄️'],75:['Heavy snow','❄️'],80:['Rain showers','🌦️'],81:['Rain showers','🌧️'],82:['Heavy showers','⛈️'],95:['Thunderstorm','⛈️'],96:['Thunderstorm and hail','⛈️'],99:['Severe thunderstorm','⛈️']};
+function msg(t){$('message').textContent=t}
+async function load(lat,lon,name){try{msg('Loading forecast…');const u='https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=auto&forecast_days=5';const r=await fetch(u);if(!r.ok)throw Error();const d=await r.json(),c=d.current;$('place').textContent=name;$('temp').textContent=Math.round(c.temperature_2m)+'°';$('feels').textContent=Math.round(c.apparent_temperature)+'°';$('humidity').textContent=c.relative_humidity_2m+'%';$('wind').textContent=Math.round(c.wind_speed_10m)+' mph';const w=weather[c.weather_code]||['Current conditions','🌤️'];$('condition').textContent=w[0];$('emoji').textContent=w[1];$('forecast').innerHTML=d.daily.time.map((day,i)=>{let q=weather[d.daily.weather_code[i]]||['Weather','🌤️'];let label=i===0?'Today':new Date(day+'T12:00:00').toLocaleDateString(undefined,{weekday:'short'});return '<div class="day"><small>'+label+'</small><b>'+q[1]+'</b><small>'+Math.round(d.daily.temperature_2m_max[i])+'° / '+Math.round(d.daily.temperature_2m_min[i])+'°</small></div>'}).join('');msg('Updated just now · Forecast by Open-Meteo')}catch(e){msg('Could not load weather. Check your connection and try again.')}}
+async function searchCity(){const q=$('city').value.trim();if(!q){msg('Type a city name first.');return}try{msg('Finding '+q+'…');const r=await fetch('https://geocoding-api.open-meteo.com/v1/search?name='+encodeURIComponent(q)+'&count=1&language=en&format=json');const d=await r.json();if(!d.results?.length)throw Error();const p=d.results[0];load(p.latitude,p.longitude,[p.name,p.admin1,p.country].filter(Boolean).join(', '))}catch(e){msg('City not found. Try another spelling.')}}
+function locate(){if(!navigator.geolocation){msg('Location is not supported. Search for a city instead.');return}msg('Requesting your location…');navigator.geolocation.getCurrentPosition(p=>load(p.coords.latitude,p.coords.longitude,'Your current location'),()=>msg('Location permission was not granted. Search for a city instead.'),{enableHighAccuracy:false,timeout:12000,maximumAge:300000})}
+$('search').onclick=searchCity;$('city').addEventListener('keydown',e=>{if(e.key==='Enter')searchCity()});$('locate').onclick=locate;
+if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});locate();
+</script></body></html>
