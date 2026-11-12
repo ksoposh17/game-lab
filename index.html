@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Game Lab — Make something fun</title>
+<meta name="description" content="Create, code, play, and share tiny browser games in Game Lab.">
+<style>
+:root{--bg:#10131f;--panel:#191e2d;--panel2:#20283a;--ink:#f4f5fb;--muted:#a6afc4;--line:#30394e;--lime:#c9f36b;--pink:#ff8fc7;--blue:#8ecbff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 12% 0%,#29314b 0,transparent 42%),var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px clamp(18px,4vw,56px);border-bottom:1px solid #ffffff12;position:sticky;top:0;background:#10131feF;backdrop-filter:blur(14px);z-index:3}
+.brand{display:flex;align-items:center;gap:11px;font-weight:850;font-size:20px;letter-spacing:-.7px}.logo{width:36px;height:36px;border-radius:12px;background:var(--lime);color:#171b24;display:grid;place-items:center;font-size:20px}
+.pill{border:1px solid var(--line);border-radius:99px;padding:7px 12px;color:var(--muted);font-size:12px}
+main{max-width:1300px;margin:auto;padding:38px clamp(16px,4vw,54px) 70px}
+.hero{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:28px}.eyebrow{color:var(--lime);font-weight:800;text-transform:uppercase;letter-spacing:2px;font-size:11px}
+h1{font-size:clamp(34px,5vw,56px);line-height:1.02;letter-spacing:-2.5px;margin:8px 0 12px}.hero p{color:var(--muted);margin:0;max-width:600px}.hero-art{font-size:62px;filter:drop-shadow(0 12px 20px #0008)}
+.layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:18px;align-items:stretch}
+.panel{background:linear-gradient(145deg,#1b2131,#151a28);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 18px 45px #0002}
+.panel-head{display:flex;justify-content:space-between;align-items:center;padding:15px 18px;border-bottom:1px solid var(--line);gap:12px}.panel-head strong{font-size:14px}.sub{font-size:12px;color:var(--muted)}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+button{border:0;border-radius:11px;padding:10px 14px;font:700 13px inherit;cursor:pointer;transition:.15s transform,.15s filter}
+button:hover{transform:translateY(-1px);filter:brightness(1.08)}button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.primary{background:var(--lime);color:#151a20}.secondary{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}.pink{background:var(--pink);color:#251522}
+textarea{display:block;width:100%;height:440px;resize:vertical;background:#0c101a;color:#d9e4ff;border:0;padding:18px;font:13px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;tab-size:2;outline:none}
+.editor-foot{display:flex;justify-content:space-between;gap:10px;padding:10px 16px;border-top:1px solid var(--line);color:var(--muted);font-size:11px}
+.preview-wrap{padding:14px}.preview-top{display:flex;justify-content:space-between;align-items:center;margin:0 2px 10px}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#8fe6a8;margin-right:6px}
+iframe{width:100%;height:440px;border:1px solid var(--line);border-radius:13px;background:#fff}
+.templates{margin-top:28px}.section-title{display:flex;align-items:end;justify-content:space-between;margin-bottom:13px}.section-title h2{margin:0;font-size:21px;letter-spacing:-.5px}.section-title span{font-size:12px;color:var(--muted)}
+.template-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.template{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;text-align:left;color:var(--ink);min-height:115px}.template .emoji{font-size:25px}.template strong{display:block;margin:7px 0 2px}.template small{color:var(--muted);font-size:12px}
+.hint{margin-top:20px;padding:15px 17px;border:1px dashed #536078;border-radius:15px;color:var(--muted);font-size:12px}.hint b{color:var(--ink)}
+footer{margin-top:30px;color:#78839b;font-size:12px;text-align:center}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--lime);color:#151a20;padding:10px 16px;border-radius:99px;font-weight:800;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:5}.toast.show{opacity:1}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.hero-art{display:none}textarea,iframe{height:360px}.template-grid{grid-template-columns:1fr}.hero{align-items:start}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">✳</div> Game Lab</div><div class="pill">✦ Your tiny corner of the internet</div></header>
+<main>
+<section class="hero"><div><div class="eyebrow">Dream it · Code it · Play it</div><h1>Make a game.<br>Make it yours.</h1><p>A friendly little workshop for building games with code. Start with an example, change anything you like, then press Run.</p></div><div class="hero-art">🕹️</div></section>
+<section class="layout">
+<div class="panel"><div class="panel-head"><div><strong>✎ Your code</strong><div class="sub">Edit the HTML, CSS, and JavaScript</div></div><div class="actions"><button class="secondary" id="reset">Reset</button><button class="primary" id="run">▶ Run game</button></div></div><textarea id="code" spellcheck="false" aria-label="Game code editor"></textarea><div class="editor-foot"><span>HTML · CSS · JavaScript</span><span id="saved">Ready to create</span></div></div>
+<div class="panel"><div class="panel-head"><div><strong>▣ Game preview</strong><div class="sub">Your game runs safely in this preview</div></div><div class="actions"><button class="secondary" id="popout">↗ Open</button></div></div><div class="preview-wrap"><div class="preview-top"><span class="sub"><i class="dot"></i>Preview window</span><span class="sub">Press Run after editing</span></div><iframe id="preview" title="Your playable game" sandbox="allow-scripts"></iframe></div></div>
+</section>
+<section class="templates"><div class="section-title"><h2>Pick a starting point</h2><span>Choose one to load its code into the editor</span></div><div class="template-grid">
+<button class="template" data-game="click"><span class="emoji">🎯</span><strong>Click the target</strong><small>Chase the target and rack up points.</small></button>
+<button class="template" data-game="color"><span class="emoji">🌈</span><strong>Color mixer</strong><small>Change the sliders and make a color.</small></button>
+<button class="template" data-game="guess"><span class="emoji">🔢</span><strong>Number guess</strong><small>Can you guess the secret number?</small></button>
+</div></section>
+<div class="actions" style="margin-top:20px"><button class="pink" id="share">↗ Share this game</button><button class="secondary" id="download">↓ Download HTML</button><button class="secondary" id="save">♥ Save on this device</button></div>
+<div class="hint"><b>How sharing works:</b> Share creates a link containing your current code, so someone else can open it in Game Lab and play it. Your saved drafts stay on this device. Never paste passwords or private information into code you share.</div>
+<footer>Made for curious minds. Keep experimenting ✨</footer>
+</main><div class="toast" id="toast"></div>
+<script>
+const starter = `<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { margin:0; min-height:100vh; display:grid; place-items:center;
+    background:linear-gradient(135deg,#ffe2f1,#dcecff); font-family:system-ui; }
+  .card { text-align:center; padding:30px; }
+  h1 { color:#5b4b91; }
+  button { border:0; border-radius:12px; padding:13px 20px;
+    background:#795bd6; color:white; font-size:17px; cursor:pointer; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>My first game ✨</h1>
+    <p>Click the button to earn stars!</p>
+    <h2 id="score">⭐ 0</h2>
+    <button id="play">Click me!</button>
+  </div>
+  <script>
+    let score = 0;
+    document.querySelector('#play').addEventListener('click', () => {
+      score++;
+      document.querySelector('#score').textContent = '⭐ ' + score;
+    });
+  <\/script>
+</body>
+</html>`;
+const templates = {
+click: `<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0;background:#101a32;color:white;font-family:system-ui;text-align:center;padding:24px}#arena{height:330px;max-width:600px;margin:20px auto;background:#e8f2ff;border-radius:18px;position:relative;overflow:hidden}#target{position:absolute;border:0;border-radius:50%;width:58px;height:58px;background:#ff6eaa;font-size:27px;cursor:pointer;box-shadow:0 5px 0 #c43c7c}h1{color:#a7eaff}</style></head><body><h1>🎯 Click the target!</h1><p>Score: <b id="score">0</b> · Click as many as you can!</p><div id="arena"><button id="target">★</button></div><script>let score=0;const a=document.querySelector('#arena'),t=document.querySelector('#target');function move(){t.style.left=Math.random()*(a.clientWidth-60)+'px';t.style.top=Math.random()*(a.clientHeight-60)+'px'}t.onclick=()=>{score++;document.querySelector('#score').textContent=score;move()};move();<\/script></body></html>`,
+color: `<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:system-ui;text-align:center;padding:35px;background:#f5f0ff;color:#29223d}.swatch{height:170px;max-width:400px;margin:25px auto;border-radius:22px;box-shadow:0 12px 30px #0002}label{display:block;margin:15px}input{width:220px}</style></head><body><h1>🌈 Color mixer</h1><p>Slide the controls and make your own color.</p><div class="swatch" id="swatch"></div><label>Red <input id="r" type="range" min="0" max="255" value="150"></label><label>Green <input id="g" type="range" min="0" max="255" value="100"></label><label>Blue <input id="b" type="range" min="0" max="255" value="220"></label><h2 id="hex"></h2><script>function paint(){let v=['r','g','b'].map(x=>+document.getElementById(x).value),c='#'+v.map(n=>n.toString(16).padStart(2,'0')).join('');document.querySelector('#swatch').style.background=c;document.querySelector('#hex').textContent=c.toUpperCase()}document.querySelectorAll('input').forEach(x=>x.oninput=paint);paint();<\/script></body></html>`,
+guess: `<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:system-ui;text-align:center;padding:45px;background:#fff4dd;color:#48351e}input,button{padding:12px;border-radius:10px;border:1px solid #d6bd91;font-size:17px}button{background:#f2a94b;cursor:pointer}#message{font-size:20px;font-weight:bold;margin:25px}</style></head><body><h1>🔢 Guess the number</h1><p>I'm thinking of a number from 1 to 20.</p><input id="guess" type="number" min="1" max="20" placeholder="Your guess"><button id="try">Guess!</button><div id="message">Good luck!</div><button id="again">New number</button><script>let secret=Math.ceil(Math.random()*20);document.querySelector('#try').onclick=()=>{let n=+document.querySelector('#guess').value;document.querySelector('#message').textContent=n===secret?'🎉 You got it!':n<secret?'⬆️ A little higher!':'⬇️ A little lower!'};document.querySelector('#again').onclick=()=>{secret=Math.ceil(Math.random()*20);document.querySelector('#message').textContent='New number picked!';document.querySelector('#guess').value=''};<\/script></body></html>`
+};
+const code=document.querySelector('#code'),frame=document.querySelector('#preview'),toast=document.querySelector('#toast');
+function notify(s){toast.textContent=s;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2200)}
+function run(){frame.srcdoc=code.value;document.querySelector('#saved').textContent='Preview updated'}
+function encode(s){return btoa(unescape(encodeURIComponent(s)))}
+function decode(s){return decodeURIComponent(escape(atob(s)))}
+code.value=starter;
+if(location.hash.startsWith('#code=')){try{code.value=decode(location.hash.slice(6));}catch(e){notify('Could not read that shared code link.')}}
+run();
+document.querySelector('#run').onclick=run;
+document.querySelector('#reset').onclick=()=>{code.value=starter;run();notify('Starter code restored')};
+document.querySelectorAll('[data-game]').forEach(b=>b.onclick=()=>{code.value=templates[b.dataset.game];run();notify('Template loaded — make it yours!')});
+document.querySelector('#save').onclick=()=>{try{localStorage.setItem('gamelab-code',code.value);notify('Saved on this device!')}catch(e){notify('Your browser blocked local saving.')}};
+const old=localStorage.getItem('gamelab-code');if(old&&!location.hash.startsWith('#code=')){code.value=old;run()}
+document.querySelector('#share').onclick=async()=>{const url=location.href.split('#')[0]+'#code='+encode(code.value);try{await navigator.clipboard.writeText(url);notify('Share link copied!')}catch(e){prompt('Copy this game link:',url)}};
+document.querySelector('#download').onclick=()=>{const blob=new Blob([code.value],{type:'text/html'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='my-game.html';a.click();URL.revokeObjectURL(url)};
+document.querySelector('#popout').onclick=()=>{const w=window.open();if(w){w.document.open();w.document.write(code.value);w.document.close()}else notify('Allow pop-ups to open the game in a new tab.')};
+</script></body></html>
