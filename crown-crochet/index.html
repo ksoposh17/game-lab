@@ -6,14 +6,57 @@
 <header><div class="brand"><svg class="logo" viewBox="0 0 100 100" role="img" aria-label="Crown Crochet crown and yarn logo"><circle cx="50" cy="55" r="39" fill="#245b72"/><path d="M24 42l7-22 19 17 19-17 7 22-5 26H29z" fill="#477b59" stroke="#172126" stroke-width="4" stroke-linejoin="round"/><path d="M37 48q13 14 26 0M35 59h30" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><path d="M19 78q25 18 54 0" fill="none" stroke="#172126" stroke-width="4" stroke-linecap="round"/></svg>CROWN CROCHET</div><nav><a href="#shop">Shop</a><a href="#custom">Custom orders</a></nav></header>
 <section class="hero"><div><small style="font:bold 12px Arial;letter-spacing:3px;color:#477b59">HANDMADE, ONE STITCH AT A TIME</small><h1>A little bit of<br><em>cozy</em> in every stitch.</h1><p>Welcome to Crown Crochet! Browse ready-made pieces or tell me what you would love to have made just for you.</p><a class="btn" href="#shop">Shop what's in stock</a><a class="btn green" href="#custom">Request a custom piece</a></div><div class="hero-art">🧶 💚</div></section>
 <section class="section" id="shop"><div class="heading"><small>THE CURRENT COLLECTION</small><h2>Ready to find a home</h2><p>Browse what's currently available. Stock can change, so send a request to claim an item.</p></div><div class="products" id="products"></div>
-<details class="owner"><summary>Shop owner? Manage your stock</summary><p>Changes here are saved in this browser only; this simple version does not sync inventory across devices.</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px"><input id="newName" placeholder="Item name"><input id="newPrice" type="number" min="0" step=".01" placeholder="Price"><input id="newQty" type="number" min="0" placeholder="Quantity"><input id="newEmoji" placeholder="Emoji e.g. 🌼"><button class="btn green" onclick="addItem()">Add item</button></div><div id="manage"></div></details></section>
+<div class="owner"><strong>Inventory is managed in your Google Sheet.</strong><p>Changes you make in Crown Crochet Inventory will appear here for visitors when they refresh the shop.</p><a href="https://docs.google.com/spreadsheets/d/1_s3c59JMsNf6WBE37og6YjiZWSTX4m79d2u9f1lpans/edit" target="_blank" rel="noopener">Open your inventory spreadsheet</a><p id="syncStatus" aria-live="polite">Loading shared inventory…</p></div></section>
 <section class="section" id="custom"><div class="heading"><small>MADE JUST FOR YOU</small><h2>Dream it, I'll crochet it</h2><p>Have a color, animal, or gift idea in mind? Send me a request!</p></div><div class="panel"><div><h3>Custom order requests</h3><p>Share your idea, colors, and size. I'll reply to discuss the details, price, and estimated time. Your order is not confirmed until I reply.</p><p>No payment is collected on this website.</p></div><form id="order"><label>Your name</label><input name="name" required><label>Email address</label><input name="email" type="email" required><label>Request type</label><select name="type"><option>In-stock item</option><option>Custom crochet order</option><option>Question</option></select><label>Item or idea</label><textarea name="details" required placeholder="Describe what you would like, colors, size, quantity..."></textarea><label>Budget (optional)</label><input name="budget" placeholder="e.g. $15–$25"><button class="btn" style="width:100%;margin-top:16px">Send order request</button></form></div></section>
 <footer>© <span id="year"></span> Crown Crochet · Handmade with love ♡</footer>
 <script>
-const starter=[{id:1,name:"Mini Daisy",price:8,qty:3,emoji:"🌼"},{id:2,name:"Little Strawberry",price:12,qty:2,emoji:"🍓"},{id:3,name:"Cozy Bee",price:15,qty:1,emoji:"🐝"},{id:4,name:"Pocket Ghost",price:10,qty:0,emoji:"👻"}];let items=JSON.parse(localStorage.getItem("crownCrochetStock")||"null")||starter;
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}function save(){localStorage.setItem("crownCrochetStock",JSON.stringify(items));render()}
-function render(){document.getElementById("products").innerHTML=items.map(x=>'<article class="product"><div class="pic">'+esc(x.emoji||"🧶")+'</div><div class="body"><h3>'+esc(x.name)+'</h3><div class="price">$'+Number(x.price).toFixed(2)+'</div><div class="stock">'+(x.qty>0?x.qty+" in stock":"Currently out of stock")+'</div><button class="btn" onclick="choose('+x.id+')">'+(x.qty>0?"Request this item":"Ask about a restock")+'</button></div></article>').join("");document.getElementById("manage").innerHTML=items.map(x=>'<p>'+esc(x.name)+' — <input style="width:80px" type="number" min="0" value="'+x.qty+'" onchange="qty('+x.id+',this.value)"> in stock <button onclick="removeItem('+x.id+')">Remove</button></p>').join("")}
-function addItem(){let name=document.getElementById("newName").value.trim(),price=Number(document.getElementById("newPrice").value),qty=Number(document.getElementById("newQty").value),emoji=document.getElementById("newEmoji").value||"🧶";if(!name||price<0||!Number.isInteger(qty)||qty<0){alert("Enter an item name, price, and whole-number quantity.");return}items.push({id:Date.now(),name,price,qty,emoji});save()}
-function qty(id,v){let x=items.find(a=>a.id===id);if(x){x.qty=Math.max(0,parseInt(v)||0);save()}}function removeItem(id){items=items.filter(x=>x.id!==id);save()}function choose(id){let x=items.find(a=>a.id===id);document.querySelector('[name=details]').value="I'd like to order "+x.name+" (quantity 1).";document.querySelector('[name=type]').value=x.qty?"In-stock item":"Custom crochet order";location.hash="#custom"}
-document.getElementById("order").addEventListener("submit",e=>{e.preventDefault();let d=new FormData(e.target),body="Name: "+d.get("name")+"\nEmail: "+d.get("email")+"\nRequest: "+d.get("type")+"\nDetails: "+d.get("details")+"\nBudget: "+(d.get("budget")||"Not provided");location.href="mailto:ksoposh@gmail.com?subject="+encodeURIComponent("Crown Crochet order request")+"&body="+encodeURIComponent(body)});document.getElementById("year").textContent=new Date().getFullYear();render();
+const SHEET_ID="1_s3c59JMsNf6WBE37og6YjiZWSTX4m79d2u9f1lpans";
+const SHEET_TAB="Sheet1";
+let items=[];
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function cell(row,i){return row.c?.[i]?.f ?? row.c?.[i]?.v ?? ""}
+function render(){
+ const host=document.getElementById("products");
+ if(!items.length){host.innerHTML='<p>No products are listed yet. Check back soon!</p>';return}
+ host.innerHTML=items.map((x,i)=>'<article class="product"><div class="pic">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+'" style="width:100%;height:100%;object-fit:cover">':'🧶')+'</div><div class="body"><h3>'+esc(x.name)+'</h3><div class="price"></body></html>+Number(x.price||0).toFixed(2)+'</div>'+(x.description?'<p>'+esc(x.description)+'</p>':'')+'<div class="stock">'+(x.qty>0?x.qty+' in stock':'Currently out of stock')+'</div><button class="btn" onclick="choose('+i+')">'+(x.qty>0?'Request this item':'Ask about a restock')+'</button></div></article>').join("");
+}
+async function loadInventory(){
+ const status=document.getElementById("syncStatus");
+ try{
+  const url='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:json&sheet='+encodeURIComponent(SHEET_TAB);
+  const response=await fetch(url);
+  if(!response.ok) throw new Error("Could not access the spreadsheet");
+  const raw=await response.text();
+  const start=raw.indexOf("{"), end=raw.lastIndexOf("}");
+  if(start<0||end<start) throw new Error("Unexpected spreadsheet response");
+  const data=JSON.parse(raw.slice(start,end+1));
+  items=(data.table?.rows||[]).map(row=>({
+   name:String(cell(row,0)).trim(),
+   price:Number(cell(row,1))||0,
+   qty:Math.max(0,Number(cell(row,2))||0),
+   description:String(cell(row,3)||""),
+   image:String(cell(row,4)||""),
+   available:String(cell(row,5)||"yes").toLowerCase()
+  })).filter(x=>x.name && !["no","false","0","hidden"].includes(x.available));
+  render();
+  status.textContent="Inventory synced from Google Sheets.";
+ }catch(error){
+  status.textContent="Couldn't load the shared inventory. Check that the sheet is shared as Anyone with the link – Viewer and that the tab is named Sheet1.";
+  document.getElementById("products").innerHTML='<p>Inventory is temporarily unavailable. Please try again later.</p>';
+ }
+}
+function choose(index){
+ const x=items[index];
+ document.querySelector('[name=details]').value="I'd like to order "+x.name+" (quantity 1).";
+ document.querySelector('[name=type]').value=x.qty>0?"In-stock item":"Custom crochet order";
+ location.hash="#custom";
+}
+document.getElementById("order").addEventListener("submit",e=>{
+ e.preventDefault();
+ let d=new FormData(e.target);
+ let body="Name: "+d.get("name")+"\nEmail: "+d.get("email")+"\nRequest: "+d.get("type")+"\nDetails: "+d.get("details")+"\nBudget: "+(d.get("budget")||"Not provided");
+ location.href="mailto:ksoposh@gmail.com?subject="+encodeURIComponent("Crown Crochet order request")+"&body="+encodeURIComponent(body);
+});
+document.getElementById("year").textContent=new Date().getFullYear();
+loadInventory();
 </script></body></html>
