@@ -1,12 +1,34 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Crown Crochet</title>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Crown Crochet</title>
 <style>
-:root{--green:#477b59;--blue:#245b72;--black:#172126;--cream:#f7faf8;--mint:#e1eee7}*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--black);font-family:Georgia,serif}header{display:flex;align-items:center;justify-content:space-between;padding:14px 6%;background:#fff;position:sticky;top:0;border-bottom:1px solid #dce8e2}nav a{margin-left:18px;color:var(--black);text-decoration:none;font:14px Arial}.brand{display:flex;align-items:center;gap:10px;color:var(--green);font:bold 20px Arial;letter-spacing:2px}.logo{width:48px;height:48px}.hero{padding:70px 7%;background:linear-gradient(120deg,#dceee5,#e1f0f4);display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:25px}.hero h1{font-size:clamp(42px,6vw,72px);font-weight:500;line-height:1;margin:12px 0}.hero h1 em{color:var(--blue)}p{font:16px/1.65 Arial;color:#526168}.btn{display:inline-block;border:0;border-radius:30px;padding:13px 20px;background:var(--blue);color:white;text-decoration:none;font:bold 14px Arial;cursor:pointer;margin:5px 5px 0 0}.btn.green{background:var(--green)}.hero-art{font-size:110px;text-align:center;background:#d5e9e3;border-radius:45%;padding:35px}.section{padding:55px 7%}.heading{text-align:center;margin-bottom:28px}.heading small{color:var(--green);font:bold 12px Arial;letter-spacing:3px}.heading h2{font-size:38px;font-weight:500;margin:8px}.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}.product{background:#fff;border:1px solid #dce8e2;border-radius:16px;overflow:hidden}.pic{height:150px;background:#e8f1ed;display:grid;place-items:center;font-size:70px}.body{padding:17px}.body h3{margin:0}.price{color:var(--blue);font:bold 16px Arial;margin-top:8px}.stock{color:var(--green);font:13px Arial;margin:9px 0}.panel{background:var(--mint);border-radius:20px;padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:24px}form{background:white;padding:22px;border-radius:16px}label{display:block;font:bold 12px Arial;margin:12px 0 5px}input,textarea,select{width:100%;padding:12px;border:1px solid #cbd9d2;border-radius:9px;font:14px Arial}textarea{min-height:95px}footer{text-align:center;background:var(--mint);padding:25px;font:13px Arial;color:#526168}.owner{margin-top:28px;background:white;border:1px solid #dce8e2;border-radius:14px;padding:18px}.owner summary{cursor:pointer;font:bold 14px Arial;color:var(--green)}@media(max-width:650px){.hero,.panel{grid-template-columns:1fr}.hero{padding:48px 6%}.hero-art{font-size:80px}header{padding:12px 4%}nav a{margin-left:8px;font-size:12px}.brand{font-size:15px}}
-</style></head><body>
+:root{--green:#477b59;--blue:#245b72;--black:#172126;--cream:#f7faf8;--mint:#e1eee7}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--black);font-family:Georgia,serif}
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 6%;background:#fff;position:sticky;top:0;border-bottom:1px solid #dce8e2}
+nav a{margin-left:18px;color:var(--black);text-decoration:none;font:14px Arial}
+.brand{display:flex;align-items:center;gap:10px;color:var(--green);font:bold 20px Arial;letter-spacing:2px}.logo{width:48px;height:48px}
+.hero{padding:70px 7%;background:linear-gradient(120deg,#dceee5,#e1f0f4);display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:25px}
+.hero h1{font-size:clamp(42px,6vw,72px);font-weight:500;line-height:1;margin:12px 0}.hero h1 em{color:var(--blue)}
+p{font:16px/1.65 Arial;color:#526168}.btn{display:inline-block;border:0;border-radius:30px;padding:13px 20px;background:var(--blue);color:white;text-decoration:none;font:bold 14px Arial;cursor:pointer;margin:5px 5px 0 0}
+.btn.green{background:var(--green)}.hero-art{font-size:110px;text-align:center;background:#d5e9e3;border-radius:45%;padding:35px}
+.section{padding:55px 7%}.heading{text-align:center;margin-bottom:28px}.heading small{color:var(--green);font:bold 12px Arial;letter-spacing:3px}.heading h2{font-size:38px;font-weight:500;margin:8px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}
+.product{background:#fff;border:1px solid #dce8e2;border-radius:16px;overflow:hidden}.pic{height:180px;background:#e8f1ed;display:grid;place-items:center;font-size:70px}
+.pic img{width:100%;height:100%;object-fit:cover}.body{padding:17px}.body h3{margin:0}.price{color:var(--blue);font:bold 16px Arial;margin-top:8px}.stock{color:var(--green);font:13px Arial;margin:9px 0}
+.status{max-width:900px;margin:0 auto 18px;padding:12px 16px;border-radius:10px;background:#e1eee7;font:14px Arial;color:#245b72}
+.panel{background:var(--mint);border-radius:20px;padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+form{background:white;padding:22px;border-radius:16px}label{display:block;font:bold 12px Arial;margin:12px 0 5px}
+input,textarea,select{width:100%;padding:12px;border:1px solid #cbd9d2;border-radius:9px;font:14px Arial}textarea{min-height:95px}
+footer{text-align:center;background:var(--mint);padding:25px;font:13px Arial;color:#526168}
+@media(max-width:650px){.hero,.panel{grid-template-columns:1fr}.hero{padding:48px 6%}.hero-art{font-size:80px}header{padding:12px 4%}nav a{margin-left:8px;font-size:12px}.brand{font-size:15px}}
+</style>
+</head>
+<body>
 <header><div class="brand"><svg class="logo" viewBox="0 0 100 100" role="img" aria-label="Crown Crochet crown and yarn logo"><circle cx="50" cy="55" r="39" fill="#245b72"/><path d="M24 42l7-22 19 17 19-17 7 22-5 26H29z" fill="#477b59" stroke="#172126" stroke-width="4" stroke-linejoin="round"/><path d="M37 48q13 14 26 0M35 59h30" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><path d="M19 78q25 18 54 0" fill="none" stroke="#172126" stroke-width="4" stroke-linecap="round"/></svg>CROWN CROCHET</div><nav><a href="#shop">Shop</a><a href="#custom">Custom orders</a></nav></header>
 <section class="hero"><div><small style="font:bold 12px Arial;letter-spacing:3px;color:#477b59">HANDMADE, ONE STITCH AT A TIME</small><h1>A little bit of<br><em>cozy</em> in every stitch.</h1><p>Welcome to Crown Crochet! Browse ready-made pieces or tell me what you would love to have made just for you.</p><a class="btn" href="#shop">Shop what's in stock</a><a class="btn green" href="#custom">Request a custom piece</a></div><div class="hero-art">🧶 💚</div></section>
-<section class="section" id="shop"><div class="heading"><small>THE CURRENT COLLECTION</small><h2>Ready to find a home</h2><p>Browse what's currently available. Stock can change, so send a request to claim an item.</p></div><div class="products" id="products"></div>
-<span id="syncStatus" aria-live="polite" hidden>Loading products…</span></section>
+<section class="section" id="shop"><div class="heading"><small>THE CURRENT COLLECTION</small><h2>Ready to find a home</h2><p>Browse what's currently available. Stock can change, so send a request to claim an item.</p></div><div id="syncStatus" class="status" role="status">Connecting to the inventory spreadsheet…</div><div class="products" id="products"></div></section>
 <section class="section" id="custom"><div class="heading"><small>MADE JUST FOR YOU</small><h2>Dream it, I'll crochet it</h2><p>Have a color, animal, or gift idea in mind? Send me a request!</p></div><div class="panel"><div><h3>Custom order requests</h3><p>Share your idea, colors, and size. I'll reply to discuss the details, price, and estimated time. Your order is not confirmed until I reply.</p><p>No payment is collected on this website.</p></div><form id="order"><label>Your name</label><input name="name" required><label>Email address</label><input name="email" type="email" required><label>Request type</label><select name="type"><option>In-stock item</option><option>Custom crochet order</option><option>Question</option></select><label>Item or idea</label><textarea name="details" required placeholder="Describe what you would like, colors, size, quantity..."></textarea><label>Budget (optional)</label><input name="budget" placeholder="e.g. $15–$25"><button class="btn" style="width:100%;margin-top:16px">Send order request</button></form></div></section>
 <footer>© <span id="year"></span> Crown Crochet · Handmade with love ♡</footer>
 <script>
@@ -17,32 +39,34 @@ function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&l
 function cell(row,i){return row.c?.[i]?.f ?? row.c?.[i]?.v ?? ""}
 function render(){
  const host=document.getElementById("products");
- if(!items.length){host.innerHTML='<p>No products are listed yet. Check back soon!</p>';return}
- host.innerHTML=items.map((x,i)=>'<article class="product"><div class="pic">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+'" style="width:100%;height:100%;object-fit:cover">':'🧶')+'</div><div class="body"><h3>'+esc(x.name)+'</h3><div class="price">+(x.description?'<p>'+esc(x.description)+'</p>':'')+'<div class="stock">'+(x.qty>0?x.qty+' in stock':'Currently out of stock')+'</div><button class="btn" onclick="choose('+i+')">'+(x.qty>0?'Request this item':'Ask about a restock')+'</button></div></article>').join("");
+ if(!items.length){host.innerHTML='<p>No available products are listed yet. Add products to your inventory spreadsheet and refresh this page.</p>';return}
+ host.innerHTML=items.map((x,i)=>'<article class="product"><div class="pic">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+'">':'🧶')+'</div><div class="body"><h3>'+esc(x.name)+'</h3><div class="price">$'+x.price.toFixed(2)+'</div>'+(x.description?'<p>'+esc(x.description)+'</p>':'')+'<div class="stock">'+(x.qty>0?x.qty+' in stock':'Currently out of stock')+'</div><button class="btn" onclick="choose('+i+')">'+(x.qty>0?'Request this item':'Ask about a restock')+'</button></div></article>').join("");
 }
 async function loadInventory(){
  const status=document.getElementById("syncStatus");
  try{
   const url='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:json&sheet='+encodeURIComponent(SHEET_TAB);
   const response=await fetch(url);
-  if(!response.ok) throw new Error("Could not access the spreadsheet");
+  if(!response.ok) throw new Error('Google Sheets returned HTTP '+response.status);
   const raw=await response.text();
   const start=raw.indexOf("{"), end=raw.lastIndexOf("}");
-  if(start<0||end<start) throw new Error("Unexpected spreadsheet response");
+  if(start<0||end<start) throw new Error("Google did not return spreadsheet data");
   const data=JSON.parse(raw.slice(start,end+1));
+  if(data.status==="error") throw new Error(data.errors?.[0]?.detailed_message || "Google Sheets query error");
   items=(data.table?.rows||[]).map(row=>({
    name:String(cell(row,0)).trim(),
-   price:Number(cell(row,1))||0,
+   price:Number(String(cell(row,1)).replace(/[^0-9.]/g,""))||0,
    qty:Math.max(0,Number(cell(row,2))||0),
    description:String(cell(row,3)||""),
-   image:String(cell(row,4)||""),
-   available:String(cell(row,5)||"yes").toLowerCase()
+   image:String(cell(row,4)||"").trim(),
+   available:String(cell(row,5)||"yes").toLowerCase().trim()
   })).filter(x=>x.name && !["no","false","0","hidden"].includes(x.available));
   render();
-  status.textContent="Inventory synced from Google Sheets.";
+  status.textContent="✓ Inventory connected! Products are loaded from Google Sheets.";
  }catch(error){
-  status.textContent="Couldn't load the shared inventory. Check that the sheet is shared as Anyone with the link – Viewer and that the tab is named Sheet1.";
-  document.getElementById("products").innerHTML='<p>Inventory is temporarily unavailable. Please try again later.</p>';
+  console.error("Crown Crochet inventory:",error);
+  status.textContent="Inventory could not connect. Check that the spreadsheet is shared as Anyone with the link – Viewer, the tab is named Sheet1, and the six columns are in the correct order.";
+  document.getElementById("products").innerHTML='<p>Your products are temporarily unavailable. Please check back soon.</p>';
  }
 }
 function choose(index){
@@ -53,51 +77,12 @@ function choose(index){
 }
 document.getElementById("order").addEventListener("submit",e=>{
  e.preventDefault();
- let d=new FormData(e.target);
- let body="Name: "+d.get("name")+"\nEmail: "+d.get("email")+"\nRequest: "+d.get("type")+"\nDetails: "+d.get("details")+"\nBudget: "+(d.get("budget")||"Not provided");
+ const d=new FormData(e.target);
+ const body="Name: "+d.get("name")+"\nEmail: "+d.get("email")+"\nRequest: "+d.get("type")+"\nDetails: "+d.get("details")+"\nBudget: "+(d.get("budget")||"Not provided");
  location.href="mailto:ksoposh@gmail.com?subject="+encodeURIComponent("Crown Crochet order request")+"&body="+encodeURIComponent(body);
 });
 document.getElementById("year").textContent=new Date().getFullYear();
 loadInventory();
-</script></body></html> + Number(x.price||0).toFixed(2) + '</div>'+(x.description?'<p>'+esc(x.description)+'</p>':'')+'<div class="stock">'+(x.qty>0?x.qty+' in stock':'Currently out of stock')+'</div><button class="btn" onclick="choose('+i+')">'+(x.qty>0?'Request this item':'Ask about a restock')+'</button></div></article>').join("");
-}
-async function loadInventory(){
- const status=document.getElementById("syncStatus");
- try{
-  const url='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:json&sheet='+encodeURIComponent(SHEET_TAB);
-  const response=await fetch(url);
-  if(!response.ok) throw new Error("Could not access the spreadsheet");
-  const raw=await response.text();
-  const start=raw.indexOf("{"), end=raw.lastIndexOf("}");
-  if(start<0||end<start) throw new Error("Unexpected spreadsheet response");
-  const data=JSON.parse(raw.slice(start,end+1));
-  items=(data.table?.rows||[]).map(row=>({
-   name:String(cell(row,0)).trim(),
-   price:Number(cell(row,1))||0,
-   qty:Math.max(0,Number(cell(row,2))||0),
-   description:String(cell(row,3)||""),
-   image:String(cell(row,4)||""),
-   available:String(cell(row,5)||"yes").toLowerCase()
-  })).filter(x=>x.name && !["no","false","0","hidden"].includes(x.available));
-  render();
-  status.textContent="Inventory synced from Google Sheets.";
- }catch(error){
-  status.textContent="Couldn't load the shared inventory. Check that the sheet is shared as Anyone with the link – Viewer and that the tab is named Sheet1.";
-  document.getElementById("products").innerHTML='<p>Inventory is temporarily unavailable. Please try again later.</p>';
- }
-}
-function choose(index){
- const x=items[index];
- document.querySelector('[name=details]').value="I'd like to order "+x.name+" (quantity 1).";
- document.querySelector('[name=type]').value=x.qty>0?"In-stock item":"Custom crochet order";
- location.hash="#custom";
-}
-document.getElementById("order").addEventListener("submit",e=>{
- e.preventDefault();
- let d=new FormData(e.target);
- let body="Name: "+d.get("name")+"\nEmail: "+d.get("email")+"\nRequest: "+d.get("type")+"\nDetails: "+d.get("details")+"\nBudget: "+(d.get("budget")||"Not provided");
- location.href="mailto:ksoposh@gmail.com?subject="+encodeURIComponent("Crown Crochet order request")+"&body="+encodeURIComponent(body);
-});
-document.getElementById("year").textContent=new Date().getFullYear();
-loadInventory();
-</script></body></html>
+</script>
+</body>
+</html>
